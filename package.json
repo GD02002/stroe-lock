@@ -9,7 +9,7 @@
     "dev": "sudo SERVER=dev pm2 start server/server.js -i max",
     "live": "sudo SERVER=live pm2 start server/server.js -i max",
     "shopify": "shopify",
-    "build": "shopify app build",
+    "build-shopify": "shopify app build",
     "dev-shopify": "shopify app dev",
     "info": "shopify app info",
     "generate": "shopify app generate",
