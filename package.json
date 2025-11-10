@@ -7,7 +7,7 @@
   "scripts": {
     "local": "set SERVER=local&& nodemon server/server.js",
     "dev": "sudo SERVER=dev pm2 start server/server.js -i max",
-    "build": "node server/server.js",
+    "build-1": "node server/server.js",
     "live": "sudo SERVER=live pm2 start server/server.js -i max",
     "shopify": "shopify",
     "build-shopify": "shopify app build",
