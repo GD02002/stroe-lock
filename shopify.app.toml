@@ -1,0 +1,23 @@
+# Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
+
+client_id = "8a9f3b19fd620c2f722366027ac30a2c"
+name = "Store Lock - Local"
+handle = "store-lock-local"
+application_url = "https://endif-beef-outlet-rebate.trycloudflare.com/api"
+embedded = true
+
+[build]
+automatically_update_urls_on_dev = true
+
+[webhooks]
+api_version = "2025-07"
+
+
+[auth]
+redirect_urls = [
+    "https://endif-beef-outlet-rebate.trycloudflare.com/api",
+    "https://endif-beef-outlet-rebate.trycloudflare.com/api/auth/callback"
+]
+
+[pos]
+embedded = false

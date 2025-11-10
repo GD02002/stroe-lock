@@ -1,0 +1,11 @@
+node_modules/
+.idea/
+package-lock.json
+logs/
+BKP_LOCAL/
+.github
+.env
+.DS_Store
+
+server/src/config/.env_live
+server/src/config/.env_local

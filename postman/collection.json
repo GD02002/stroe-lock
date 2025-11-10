@@ -1,0 +1,70 @@
+{
+	"info": {
+		"_postman_id": "08967608-0c6c-4685-8969-e410271461b5",
+		"name": "Store Lock App",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "39206955"
+	},
+	"item": [
+		{
+			"name": "GET",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "authentication",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{HOST}}settings?shop={{shop}}",
+					"host": [
+						"{{HOST}}settings"
+					],
+					"query": [
+						{
+							"key": "shop",
+							"value": "{{shop}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "REST ADMIN",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-Shopify-Access-Token",
+						"value": "{{access_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "query {\n  shop {\n    metafield(namespace: \"store_lock\", key: \"settings\") {\n      id\n      value\n    }\n  }\n}",
+						"variables": ""
+					}
+				},
+				"url": {
+					"raw": "https://{{shop}}/admin/api/2025-10/graphql.json",
+					"protocol": "https",
+					"host": [
+						"{{shop}}"
+					],
+					"path": [
+						"admin",
+						"api",
+						"2025-10",
+						"graphql.json"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

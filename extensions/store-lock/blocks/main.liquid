@@ -1,0 +1,108 @@
+{%- assign store_lock = shop.metafields.store_lock.settings.value -%}
+
+<link rel="stylesheet" href="{{ 'store_lock.css' | asset_url }}">
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+
+    document.addEventListener('contextmenu', function(e) {
+      e.preventDefault();
+      showWarning("Right-click is disabled on this website.");
+    });
+
+    ['copy', 'cut', 'paste'].forEach(event => {
+      document.addEventListener(event, function(e) {
+        e.preventDefault();
+        showWarning("Copying content is disabled on this site.");
+      });
+    });
+
+    document.addEventListener('keydown', function(e) {
+      if (
+              e.key === 'F12' ||
+              ((e.ctrlKey || e.metaKey) && (e.shiftKey || e.altKey) &&
+                      ['I', 'i', 'J', 'j', 'C', 'c'].includes(e.key)) ||
+              ((e.ctrlKey || e.metaKey) && ['U', 'u', 'S', 's', 'P', 'p'].includes(e.key))
+      ) {
+        e.preventDefault();
+        showWarning("Developer tools and shortcuts are disabled.");
+      }
+    });
+
+    let devtools = false;
+    const checkDevTools = () => {
+      const threshold = 160;
+      if (window.outerWidth - window.innerWidth > threshold ||
+              window.outerHeight - window.innerHeight > threshold) {
+        if (!devtools) {
+          devtools = true;
+          showWarning("Developer Tools detected. Please close it to continue.");
+          setTimeout(() => {
+            window.location.href = '/';
+          }, 1500);
+        }
+      } else {
+        devtools = false;
+      }
+    };
+    setInterval(checkDevTools, 1000);
+
+
+    document.addEventListener('dragstart', function(e) {
+      e.preventDefault();
+      showWarning("Image dragging is disabled.");
+    });
+
+
+    document.addEventListener('selectstart', function(e) {
+      e.preventDefault();
+    });
+
+    function showWarning(message) {
+      let existing = document.getElementById('storelock-warning');
+      if (existing) existing.remove();
+      let modal = document.createElement('div');
+      modal.id = 'storelock-warning';
+      modal.innerHTML = `
+        <div class="storelock-modal">
+          <p>${message}</p>
+        </div>
+      `;
+      document.body.appendChild(modal);
+      setTimeout(() => modal.remove(), 3000);
+    }
+
+  });
+</script>
+
+<style>
+  /* Basic modal warning styling */
+  #storelock-warning {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-family: sans-serif;
+    font-size: 14px;
+    z-index: 999999;
+    animation: fadeIn 0.3s ease;
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translate(-50%, -10px); }
+    to { opacity: 1; transform: translate(-50%, 0); }
+  }
+</style>
+
+<script defer src="{{ 'store_lock.js' | asset_url }}" crossorigin="anonymous"></script>
+
+{% schema %}
+{
+"name": "Store Lock (Local)",
+"target": "body",
+"settings": []
+}
+{% endschema %}
